@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Pague com Pix</title>
+
+    <!-- Biblioteca gratuita para gerar QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .pix-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 5px 0;
+            font-size: 26px;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 22px;
+            text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #008f68;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-pix {
+            background: #008f68;
+            color: white;
+        }
+
+        .btn-copy {
+            background: #eee;
+            color: #222;
+        }
+
+        #resultado {
+            display: none;
+            margin-top: 25px;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pix-code {
+            background: #f1f1f1;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 12px;
+            word-break: break-all;
+            text-align: left;
+            max-height: 130px;
+            overflow-y: auto;
+        }
+
+        .success {
+            color: #008f68;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .recebedor {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .valor-final {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="pix-icon">💚</div>
+
+        <h1>Pague com Pix</h1>
+
+        <div class="description">
+            Informe o valor que deseja pagar
+        </div>
+
+        <div class="recebedor">
+            Recebedor:<br>
+            <strong>CLAUDIO MANOEL DOS SANTOS</strong>
+        </div>
+
+        <br>
+
+        <label for="valor">Valor</label>
+
+        <input
+            type="text"
+            id="valor"
+            inputmode="decimal"
+            placeholder="0,00"
+            autocomplete="off"
+        >
+
+        <button
+            class="btn-pix"
+            onclick="gerarPix()">
+            💚 Gerar Pix
+        </button>
+
+        <div id="resultado">
+
+            <div class="valor-final" id="valorFinal"></div>
+
+            <h3>Escaneie o QR Code</h3>
+
+            <div id="qrcode"></div>
+
+            <p>Ou copie o código Pix:</p>
+
+            <div
+                class="pix-code"
+                id="pixCode">
+            </div>
+
+            <button
+                class="btn-copy"
+                onclick="copiarPix()">
+                📋 Copiar Pix Copia e Cola
+            </button>
+
+            <div
+                id="mensagem"
+                class="success">
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        Pagamento via Pix
+    </footer>
+
+</div>
+
+
+<script>
+
+/*
+=========================================================
+CONFIGURAÇÃO
+=========================================================
+*/
+
+const CHAVE_PIX = "+5511954619610";
+
+const NOME_RECEBEDOR = "CLAUDIO MANOEL DOS SANTOS";
+
+const CIDADE = "SAO PAULO";
+
+
+/*
+=========================================================
+FUNÇÕES AUXILIARES
+=========================================================
+*/
+
+// Remove acentos
+function removerAcentos(texto) {
+
+    return texto
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
+
+// Limita o texto ao tamanho permitido pelo Pix
+function limitar(texto, tamanho) {
+
+    return texto.substring(0, tamanho);
+}
+
+
+// Formata campo EMV
+function campo(id, valor) {
+
+    return id +
+           String(valor.length).padStart(2, "0") +
+           valor;
+}
+
+
+/*
+=========================================================
+CRC16 CCITT
+=========================================================
+*/
+
+function crc16(payload) {
+
+    let crc = 0xFFFF;
+
+    for (let i = 0; i < payload.length; i++) {
+
+        crc ^= payload.charCodeAt(i) << 8;
+
+        for (let j = 0; j < 8; j++) {
+
+            if ((crc & 0x8000) !== 0) {
+
+                crc =
+                    ((crc << 1) ^ 0x1021) & 0xFFFF;
+
+            } else {
+
+                crc =
+                    (crc << 1) & 0xFFFF;
+            }
+        }
+    }
+
+    return crc
+        .toString(16)
+        .toUpperCase()
+        .padStart(4, "0");
+}
+
+
+/*
+=========================================================
+GERAÇÃO DO PIX
+=========================================================
+*/
+
+function gerarPix() {
+
+    let valorTexto =
+        document.getElementById("valor").value;
+
+    // Aceita 10,50 ou 10.50
+    valorTexto =
+        valorTexto
+        .replace("R$", "")
+        .trim()
+        .replace(/\./g, "")
+        .replace(",", ".");
+
+    const valor =
+        parseFloat(valorTexto);
+
+    if (isNaN(valor) || valor <= 0) {
+
+        alert("Digite um valor válido.");
+
+        return;
+    }
+
+    const valorPix =
+        valor.toFixed(2);
+
+
+    /*
+    -----------------------------------------------------
+    Merchant Account Information
+    -----------------------------------------------------
+    */
+
+    const gui =
+        campo("00", "BR.GOV.BCB.PIX");
+
+    const chave =
+        campo("01", CHAVE_PIX);
+
+    const merchantAccount =
+        campo("26", gui + chave);
+
+
+    /*
+    -----------------------------------------------------
+    Dados principais
+    -----------------------------------------------------
+    */
+
+    let payload = "";
+
+    // Payload Format Indicator
+    payload += campo("00", "01");
+
+    // Merchant Account Information
+    payload += merchantAccount;
+
+    // Moeda - Real brasileiro
+    payload += campo("52", "0000");
+
+    // Valor
+    payload += campo("53", "986");
+
+    // Valor da transação
+    payload += campo("54", valorPix);
+
+    // País
+    payload += campo("58", "BR");
+
+    // Nome
+    payload += campo(
+        "59",
+        limitar(
+            removerAcentos(NOME_RECEBEDOR),
+            25
+        )
+    );
+
+    // Cidade
+    payload += campo(
+        "60",
+        limitar(
+            removerAcentos(CIDADE),
+            15
+        )
+    );
+
+
+    /*
+    -----------------------------------------------------
+    Additional Data Field
+
+    TXID = ***
+    -----------------------------------------------------
+    */
+
+    const txid =
+        campo("05", "***");
+
+    payload +=
+        campo("62", txid);
+
+
+    /*
+    -----------------------------------------------------
+    CRC
+    -----------------------------------------------------
+    */
+
+    payload += "6304";
+
+    const crc =
+        crc16(payload);
+
+    const pix =
+        payload + crc;
+
+
+    /*
+    -----------------------------------------------------
+    MOSTRAR RESULTADO
+    -----------------------------------------------------
+    */
+
+    document.getElementById("resultado")
+        .style.display = "block";
+
+    document.getElementById("valorFinal")
+        .innerText =
+        "R$ " +
+        valor.toFixed(2)
+            .replace(".", ",");
+
+    document.getElementById("pixCode")
+        .innerText = pix;
+
+
+    /*
+    -----------------------------------------------------
+    QR CODE
+    -----------------------------------------------------
+    */
+
+    const qr =
+        document.getElementById("qrcode");
+
+    qr.innerHTML = "";
+
+    new QRCode(qr, {
+
+        text: pix,
+
+        width: 220,
+
+        height: 220,
+
+        correctLevel:
+            QRCode.CorrectLevel.M
+
+    });
+
+
+    document.getElementById("mensagem")
+        .innerText = "";
+
+}
+
+
+/*
+=========================================================
+COPIAR PIX
+=========================================================
+*/
+
+async function copiarPix() {
+
+    const pix =
+        document.getElementById("pixCode")
+            .innerText;
+
+    try {
+
+        await navigator.clipboard.writeText(pix);
+
+        document.getElementById("mensagem")
+            .innerText =
+            "✓ Pix Copia e Cola copiado!";
+
+    } catch (erro) {
+
+        alert(
+            "Não foi possível copiar automaticamente. " +
+            "Selecione e copie o código."
+        );
+    }
+}
+
+
+/*
+=========================================================
+FORMATAÇÃO DO CAMPO DE VALOR
+=========================================================
+*/
+
+document
+    .getElementById("valor")
+    .addEventListener("input", function() {
+
+        let valor = this.value;
+
+        valor = valor.replace(/[^\d,\.]/g, "");
+
+        this.value = valor;
+
+    });
+
+</script>
+
+</body>
+</html>
