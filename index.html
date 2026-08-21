@@ -1,183 +1,1085 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#061b4f">
-<title>Constantino Jiu-Jitsu | Pix</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>Dojô Adriano Constantino</title>
 
-<style>
-:root{
-  --navy:#061b4f;
-  --navy2:#0a286b;
-  --gold:#d6a62a;
-  --gold2:#f0c34b;
-  --white:#fff;
-  --muted:#d9e1f2;
-  --line:rgba(255,255,255,.35);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#fff;
-  background:
-    radial-gradient(circle at 50% -10%,#163b83 0,#0a286b 32%,#061b4f 72%);
-  min-height:100vh;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.08;
-  background:
-    repeating-linear-gradient(135deg,transparent 0 18px,#fff 19px 20px);
-}
-.page{max-width:980px;margin:auto;padding:18px 14px 28px;position:relative}
-.hero{text-align:center;padding:10px 10px 22px}
-.logo{
-  width:150px;height:150px;border-radius:50%;
-  object-fit:cover;
-  border:5px solid var(--gold);
-  box-shadow:0 0 0 4px #fff,0 10px 30px rgba(0,0,0,.35);
-}
-h1{
-  margin:18px 0 6px;
-  font-size:clamp(27px,5vw,48px);
-  letter-spacing:2px;
-  font-weight:900;
-}
-.tagline{
-  color:var(--gold2);
-  font-weight:900;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  font-size:clamp(12px,2.5vw,19px);
-}
-.panel{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-  margin:12px 0;
-  background:rgba(3,20,59,.58);
-  box-shadow:0 10px 28px rgba(0,0,0,.15);
-}
-.section-title{
-  font-size:clamp(22px,4vw,34px);
-  font-weight:900;
-  margin:0 0 6px;
-}
-.section-subtitle{font-size:17px;color:var(--muted);margin-bottom:18px}
-.products{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-.product{
-  appearance:none;
-  border:2px solid var(--gold);
-  border-radius:16px;
-  background:#fff;
-  color:#071b4f;
-  padding:18px 12px;
-  min-height:205px;
-  cursor:pointer;
-  transition:.18s transform,.18s box-shadow;
-  font-weight:700;
-}
-.product:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.25)}
-.product:active{transform:scale(.98)}
-.product-icon{font-size:58px;display:block;margin-bottom:8px}
-.product-name{font-size:24px;font-weight:900;display:block}
-.product-price{
-  display:block;
-  border-top:2px solid var(--gold);
-  margin:10px auto 0;
-  padding-top:10px;
-  font-size:27px;
-  font-weight:900;
-}
-.hint{text-align:center;color:var(--muted);margin:18px 0 0}
-.hidden{display:none!important}
-.confirm-row{
-  border:1px solid var(--gold);
-  border-radius:15px;
-  padding:16px;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:12px;
-  align-items:center;
-}
-.confirm-cell{text-align:center}
-.confirm-label{font-size:14px;color:var(--muted)}
-.confirm-value{font-size:24px;font-weight:900;margin-top:4px}
-.confirm-price{font-size:34px;color:var(--gold2);font-weight:900}
-.message{font-size:18px;line-height:1.45}
-.buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-button.action{
-  border-radius:13px;
-  padding:16px;
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  border:2px solid var(--gold);
-}
-.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#071b4f}
-.secondary{background:transparent;color:#fff}
-.payment-grid{
-  display:grid;
-  grid-template-columns:330px 1fr;
-  gap:24px;
-  align-items:center;
-}
-.qr-wrap{background:#fff;border-radius:14px;padding:15px;width:max-content;margin:auto}
-#qrcode{display:flex;justify-content:center}
-#qrcode img{display:block}
-.pay-note{font-size:18px;line-height:1.45}
-.pix-title{color:var(--gold2);font-size:18px;font-weight:900;border-top:2px solid var(--gold);padding-top:10px;margin-top:14px}
-.pix-code{
-  margin-top:8px;
-  border:1px solid var(--gold);
-  border-radius:10px;
-  padding:12px;
-  color:#fff;
-  font-size:12px;
-  line-height:1.45;
-  word-break:break-all;
-  max-height:145px;
-  overflow:auto;
-}
-.copy{width:100%;margin-top:10px}
-.status{min-height:22px;text-align:center;color:#7ff0b5;font-weight:800;margin-top:9px}
-.thanks{
-  text-align:center;
-  border:2px solid var(--gold);
-  border-radius:18px;
-  padding:20px;
-}
-.thanks-title{font-size:27px;color:var(--gold2);font-weight:900}
-.thanks-text{font-size:17px;line-height:1.5;margin-top:8px}
-.values{color:var(--gold2);font-weight:900;margin-top:8px}
-footer{text-align:center;color:var(--muted);font-size:13px;padding-top:14px}
-@media(max-width:720px){
-  .products{grid-template-columns:1fr}
-  .product{min-height:150px}
-  .product-icon{font-size:48px;display:inline-block;margin-right:10px}
-  .product-name{display:inline-block}
-  .product-price{font-size:23px}
-  .confirm-row{grid-template-columns:1fr}
-  .payment-grid{grid-template-columns:1fr}
-  .buttons{grid-template-columns:1fr}
-}
-</style>
+    <!-- Gerador gratuito de QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #111;
+            color: #222;
+        }
+
+        .container {
+            max-width: 440px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,.35);
+        }
+
+        /* CABEÇALHO */
+
+        .header {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 28px 20px 24px;
+        }
+
+        .logo {
+            font-size: 52px;
+            margin-bottom: 5px;
+        }
+
+        .dojo-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .dojo-subtitle {
+            margin-top: 7px;
+            font-size: 13px;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* CONTEÚDO */
+
+        .content {
+            padding: 25px 20px 30px;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .instruction {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        /* PRODUTOS */
+
+        .product {
+            width: 100%;
+            padding: 17px;
+            margin: 11px 0;
+            border: 2px solid #eee;
+            border-radius: 14px;
+            background: #fff;
+            cursor: pointer;
+            text-align: left;
+            transition: .2s;
+            font-size: 17px;
+        }
+
+        .product:hover {
+            border-color: #222;
+            transform: translateY(-1px);
+        }
+
+        .product:active {
+            transform: scale(.98);
+        }
+
+        .product-icon {
+            font-size: 28px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .product-name {
+            font-weight: 700;
+        }
+
+        .product-price {
+            float: right;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        /* CONFIRMAÇÃO */
+
+        #confirmation,
+        #payment {
+            display: none;
+        }
+
+        .selected-icon {
+            font-size: 55px;
+            margin-bottom: 5px;
+        }
+
+        .selected-product {
+            font-size: 24px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .selected-price {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 12px 0;
+        }
+
+        .product-message {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 16px;
+            line-height: 1.5;
+            margin: 18px 0;
+            color: #555;
+        }
+
+        /* BOTÕES */
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-confirm {
+            background: #111;
+            color: #fff;
+        }
+
+        .btn-back {
+            background: #eee;
+            color: #333;
+        }
+
+        .btn-copy {
+            background: #eee;
+            color: #222;
+        }
+
+        /* PAGAMENTO */
+
+        .payment-title {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .payment-value {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 8px 0 20px;
+        }
+
+        .payment-instruction {
+            color: #666;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 22px 0;
+        }
+
+        #qrcode img {
+            padding: 8px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .copy-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pix-code {
+            background: #f1f1f1;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.4;
+            word-break: break-all;
+            text-align: left;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .success {
+            color: #16804f;
+            font-weight: 700;
+            margin-top: 12px;
+            min-height: 20px;
+        }
+
+        /* AGRADECIMENTO */
+
+        .thank-you {
+            margin-top: 25px;
+            padding: 18px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .thank-you strong {
+            color: #222;
+            font-size: 17px;
+        }
+
+        .martial {
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            color: #aaa;
+            font-size: 11px;
+            padding: 14px 0;
+        }
+
+    </style>
 </head>
 
 <body>
-<div class="page">
 
-  <header class="hero">
-    <img class="logo" src="data:image/jpeg;base64,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
+<div class="container">
+
+    <div class="card">
+
+        <!-- =========================
+             CABEÇALHO
+        ========================== -->
+
+        <div class="header">
+
+            <div class="logo">
+                🥋
+            </div>
+
+            <div class="dojo-name">
+                DOJÔ ADRIANO CONSTANTINO
+            </div>
+
+            <div class="dojo-subtitle">
+                Produtos para seu treino
+            </div>
+
+        </div>
+
+
+        <div class="content">
+
+
+            <!-- =========================
+                 PRODUTOS
+            ========================== -->
+
+            <div id="products">
+
+                <div class="question">
+                    O que você está pegando?
+                </div>
+
+                <div class="instruction">
+                    Escolha o produto e depois confirme sua compra.
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Água', 10.00, '💧')"
+                >
+
+                    <span class="product-icon">
+                        💧
+                    </span>
+
+                    <span class="product-name">
+                        Água
+                    </span>
+
+                    <span class="product-price">
+                        R$ 10,00
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Isotônico', 15.00, '🧃')"
+                >
+
+                    <span class="product-icon">
+                        🧃
+                    </span>
+
+                    <span class="product-name">
+                        Isotônico
+                    </span>
+
+                    <span class="product-price">
+                        R$ 15,00
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Energético', 20.00, '⚡')"
+                >
+
+                    <span class="product-icon">
+                        ⚡
+                    </span>
+
+                    <span class="product-name">
+                        Energético
+                    </span>
+
+                    <span class="product-price">
+                        R$ 20,00
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 CONFIRMAÇÃO
+            ========================== -->
+
+            <div id="confirmation">
+
+                <div
+                    class="selected-icon"
+                    id="selectedIcon">
+                </div>
+
+                <div
+                    class="selected-product"
+                    id="selectedProduct">
+                </div>
+
+                <div
+                    class="selected-price"
+                    id="selectedPrice">
+                </div>
+
+
+                <div
+                    class="product-message"
+                    id="productMessage">
+                </div>
+
+
+                <button
+                    class="btn-confirm"
+                    onclick="generatePix()">
+
+                    💚 Confirmar compra
+
+                </button>
+
+
+                <button
+                    class="btn-back"
+                    onclick="backToProducts()">
+
+                    ← Escolher outro produto
+
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 PAGAMENTO
+            ========================== -->
+
+            <div id="payment">
+
+                <div class="payment-title">
+                    Pagamento via Pix
+                </div>
+
+
+                <div
+                    class="payment-value"
+                    id="paymentValue">
+                </div>
+
+
+                <div class="payment-instruction">
+
+                    Escaneie o QR Code usando o
+                    aplicativo do seu banco.
+
+                    <br><br>
+
+                    Confira o nome do recebedor
+                    antes de confirmar.
+
+                </div>
+
+
+                <div id="qrcode"></div>
+
+
+                <div class="copy-title">
+                    Ou copie o Pix Copia e Cola:
+                </div>
+
+
+                <div
+                    class="pix-code"
+                    id="pixCode">
+                </div>
+
+
+                <button
+                    class="btn-copy"
+                    onclick="copyPix()">
+
+                    📋 Copiar Pix Copia e Cola
+
+                </button>
+
+
+                <div
+                    class="success"
+                    id="success">
+                </div>
+
+
+                <!-- =========================
+                     AGRADECIMENTO
+                ========================== -->
+
+                <div class="thank-you">
+
+                    <strong>
+                        Obrigado pela compra! 🙏
+                    </strong>
+
+                    <br><br>
+
+                    Agradecemos a preferência e
+                    a confiança no nosso Dojô.
+
+                    <div class="martial">
+                        Treine forte. Treine com respeito. 🥋
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn-back"
+                    onclick="newPurchase()">
+
+                    🛒 Nova compra
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        Dojô Adriano Constantino
+    </footer>
+
+</div>
+
+
+<script>
+
+/*
+=========================================================
+CONFIGURAÇÃO DO PIX
+=========================================================
+*/
+
+const PIX_KEY =
+    "08812438000186";
+
+const RECEIVER_NAME =
+    "DOJO ADRIANO CONSTANTINO";
+
+const CITY =
+    "SAO PAULO";
+
+
+/*
+=========================================================
+VARIÁVEIS
+=========================================================
+*/
+
+let selectedProduct = "";
+
+let selectedValue = 0;
+
+let selectedIcon = "";
+
+
+/*
+=========================================================
+SELECIONAR PRODUTO
+=========================================================
+*/
+
+function selectProduct(name, value, icon) {
+
+    selectedProduct = name;
+
+    selectedValue = value;
+
+    selectedIcon = icon;
+
+
+    document.getElementById("products")
+        .style.display = "none";
+
+    document.getElementById("confirmation")
+        .style.display = "block";
+
+
+    document.getElementById("selectedIcon")
+        .innerText = icon;
+
+
+    document.getElementById("selectedProduct")
+        .innerText = name;
+
+
+    document.getElementById("selectedPrice")
+        .innerText =
+            "R$ " +
+            value.toFixed(2)
+                .replace(".", ",");
+
+
+    let message = "";
+
+
+    if (name === "Água") {
+
+        message =
+            "Você escolheu uma água. " +
+            "Aproveite e mantenha-se hidratado! 💧";
+
+    }
+
+    else if (name === "Isotônico") {
+
+        message =
+            "Você escolheu um isotônico. " +
+            "Boa recuperação e ótimo treino! 💪";
+
+    }
+
+    else if (name === "Energético") {
+
+        message =
+            "Você escolheu um energético. " +
+            "Energia para continuar o treino! ⚡";
+
+    }
+
+
+    document.getElementById("productMessage")
+        .innerText = message;
+
+}
+
+
+/*
+=========================================================
+VOLTAR
+=========================================================
+*/
+
+function backToProducts() {
+
+    document.getElementById("confirmation")
+        .style.display = "none";
+
+    document.getElementById("products")
+        .style.display = "block";
+
+}
+
+
+/*
+=========================================================
+REMOVER ACENTOS
+=========================================================
+*/
+
+function removeAccents(text) {
+
+    return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+}
+
+
+/*
+=========================================================
+LIMITAR TEXTO
+=========================================================
+*/
+
+function limitText(text, max) {
+
+    return text.substring(0, max);
+
+}
+
+
+/*
+=========================================================
+CAMPO EMV
+=========================================================
+*/
+
+function field(id, value) {
+
+    return id +
+        String(value.length)
+            .padStart(2, "0") +
+        value;
+
+}
+
+
+/*
+=========================================================
+CRC16
+=========================================================
+*/
+
+function crc16(payload) {
+
+    let crc = 0xFFFF;
+
+
+    for (
+        let i = 0;
+        i < payload.length;
+        i++
+    ) {
+
+        crc ^=
+            payload.charCodeAt(i) << 8;
+
+
+        for (
+            let j = 0;
+            j < 8;
+            j++
+        ) {
+
+            if (
+                (crc & 0x8000) !== 0
+            ) {
+
+                crc =
+                    (
+                        (crc << 1)
+                        ^
+                        0x1021
+                    ) & 0xFFFF;
+
+            }
+
+            else {
+
+                crc =
+                    (crc << 1) & 0xFFFF;
+
+            }
+
+        }
+
+    }
+
+
+    return crc
+        .toString(16)
+        .toUpperCase()
+        .padStart(4, "0");
+
+}
+
+
+/*
+=========================================================
+GERAR PIX
+=========================================================
+*/
+
+function generatePix() {
+
+    const amount =
+        selectedValue.toFixed(2);
+
+
+    /*
+    Merchant Account Information
+    */
+
+    const gui =
+        field(
+            "00",
+            "BR.GOV.BCB.PIX"
+        );
+
+
+    const key =
+        field(
+            "01",
+            PIX_KEY
+        );
+
+
+    const merchantAccount =
+        field(
+            "26",
+            gui + key
+        );
+
+
+    /*
+    PAYLOAD
+    */
+
+    let payload = "";
+
+
+    // Payload Format Indicator
+
+    payload +=
+        field(
+            "00",
+            "01"
+        );
+
+
+    // Merchant Account Information
+
+    payload +=
+        merchantAccount;
+
+
+    // Merchant Category Code
+
+    payload +=
+        field(
+            "52",
+            "0000"
+        );
+
+
+    // Moeda brasileira
+
+    payload +=
+        field(
+            "53",
+            "986"
+        );
+
+
+    // Valor
+
+    payload +=
+        field(
+            "54",
+            amount
+        );
+
+
+    // País
+
+    payload +=
+        field(
+            "58",
+            "BR"
+        );
+
+
+    // Nome do recebedor
+
+    payload +=
+        field(
+            "59",
+            limitText(
+                removeAccents(
+                    RECEIVER_NAME
+                ),
+                25
+            )
+        );
+
+
+    // Cidade
+
+    payload +=
+        field(
+            "60",
+            limitText(
+                removeAccents(
+                    CITY
+                ),
+                15
+            )
+        );
+
+
+    // TXID
+
+    payload +=
+        field(
+            "62",
+            field(
+                "05",
+                "***"
+            )
+        );
+
+
+    /*
+    CRC
+    */
+
+    payload += "6304";
+
+
+    const crc =
+        crc16(payload);
+
+
+    const pix =
+        payload + crc;
+
+
+    /*
+    MOSTRAR PAGAMENTO
+    */
+
+    document.getElementById("confirmation")
+        .style.display = "none";
+
+
+    document.getElementById("payment")
+        .style.display = "block";
+
+
+    document.getElementById("paymentValue")
+        .innerText =
+            "R$ " +
+            selectedValue
+                .toFixed(2)
+                .replace(".", ",");
+
+
+    /*
+    PIX COPIA E COLA
+    */
+
+    document.getElementById("pixCode")
+        .innerText = pix;
+
+
+    /*
+    QR CODE
+    */
+
+    const qr =
+        document.getElementById("qrcode");
+
+
+    qr.innerHTML = "";
+
+
+    new QRCode(
+        qr,
+        {
+            text: pix,
+            width: 230,
+            height: 230,
+            correctLevel:
+                QRCode.CorrectLevel.M
+        }
+    );
+
+
+    document.getElementById("payment")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/*
+=========================================================
+COPIAR PIX
+=========================================================
+*/
+
+async function copyPix() {
+
+    const pix =
+        document.getElementById("pixCode")
+            .innerText;
+
+
+    const message =
+        document.getElementById("success");
+
+
+    try {
+
+        await navigator
+            .clipboard
+            .writeText(pix);
+
+
+        message.innerText =
+            "✓ Pix Copia e Cola copiado!";
+
+    }
+
+    catch (error) {
+
+        const textarea =
+            document.createElement("textarea");
+
+
+        textarea.value = pix;
+
+
+        textarea.style.position =
+            "fixed";
+
+        textarea.style.left =
+            "-9999px";
+
+
+        document.body
+            .appendChild(textarea);
+
+
+        textarea.select();
+
+
+        try {
+
+            document.execCommand("copy");
+
+
+            message.innerText =
+                "✓ Pix Copia e Cola copiado!";
+
+        }
+
+        catch (e) {
+
+            message.innerText =
+                "Selecione o código Pix e copie manualmente.";
+
+        }
+
+
+        document.body
+            .removeChild(textarea);
+
+    }
+
+}
+
+
+/*
+=========================================================
+NOVA COMPRA
+=========================================================
+*/
+
+function newPurchase() {
+
+    selectedProduct = "";
+
+    selectedValue = 0;
+
+    selectedIcon = "";
+
+
+    document.getElementById("payment")
+        .style.display = "none";
+
+
+    document.getElementById("confirmation")
+        .style.display = "none";
+
+
+    document.getElementById("products")
+        .style.display = "block";
+
+
+    document.getElementById("qrcode")
+        .innerHTML = "";
+
+
+    document.getElementById("pixCode")
+        .innerText = "";
+
+
+    document.getElementById("success")
+        .innerText = "";
+
+}
+
+</script>
+
+</body>
+</html>
