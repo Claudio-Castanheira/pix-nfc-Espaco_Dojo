@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#008f68">
+    <meta name="theme-color" content="#111111">
 
-    <title>Espaço Dojo - Pagamento Pix</title>
+    <title>Dojô Adriano Constantino</title>
 
-    <!-- Biblioteca gratuita para gerar QR Code -->
+    <!-- Gerador gratuito de QR Code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
@@ -19,162 +19,253 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f3f5f4;
+            background: #111;
             color: #222;
         }
 
         .container {
             max-width: 440px;
             margin: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         .card {
-            background: white;
-            border-radius: 22px;
-            padding: 25px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,.35);
+        }
+
+        /* CABEÇALHO */
+
+        .header {
+            background: #111;
+            color: white;
             text-align: center;
+            padding: 28px 20px 24px;
         }
 
         .logo {
-            font-size: 42px;
+            font-size: 52px;
             margin-bottom: 5px;
         }
 
-        h1 {
-            margin: 5px 0 8px;
-            font-size: 27px;
+        .dojo-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: .5px;
         }
 
-        .dojo {
-            font-size: 14px;
+        .dojo-subtitle {
+            margin-top: 7px;
+            font-size: 13px;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* CONTEÚDO */
+
+        .content {
+            padding: 25px 20px 30px;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .instruction {
             color: #777;
-            margin-bottom: 25px;
+            font-size: 14px;
+            margin-bottom: 22px;
         }
 
-        .pergunta {
-            font-size: 21px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
+        /* PRODUTOS */
 
-        .produto {
+        .product {
             width: 100%;
-            padding: 18px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 15px;
-            background: white;
+            padding: 17px;
+            margin: 11px 0;
+            border: 2px solid #eee;
+            border-radius: 14px;
+            background: #fff;
             cursor: pointer;
             text-align: left;
-            font-size: 18px;
-            transition: 0.2s;
+            transition: .2s;
+            font-size: 17px;
         }
 
-        .produto:hover {
-            background: #f2faf7;
-            border-color: #008f68;
+        .product:hover {
+            border-color: #222;
+            transform: translateY(-1px);
         }
 
-        .produto strong {
+        .product:active {
+            transform: scale(.98);
+        }
+
+        .product-icon {
+            font-size: 28px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .product-name {
+            font-weight: 700;
+        }
+
+        .product-price {
             float: right;
+            font-weight: 800;
+            margin-top: 5px;
         }
 
-        .icone {
-            font-size: 25px;
-            margin-right: 8px;
-        }
+        /* CONFIRMAÇÃO */
 
-        #confirmacao,
-        #pagamento {
+        #confirmation,
+        #payment {
             display: none;
         }
 
-        .produto-escolhido {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 20px 0 5px;
+        .selected-icon {
+            font-size: 55px;
+            margin-bottom: 5px;
         }
 
-        .valor {
+        .selected-product {
+            font-size: 24px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .selected-price {
             font-size: 34px;
-            font-weight: bold;
-            color: #008f68;
-            margin: 10px 0 20px;
+            font-weight: 800;
+            margin: 12px 0;
         }
 
-        .mensagem {
-            color: #555;
+        .product-message {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 16px;
             line-height: 1.5;
-            margin: 15px 0 25px;
+            margin: 18px 0;
+            color: #555;
         }
+
+        /* BOTÕES */
 
         button {
             width: 100%;
             border: none;
-            border-radius: 13px;
+            border-radius: 12px;
             padding: 16px;
             font-size: 17px;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
             margin-top: 10px;
         }
 
-        .btn-confirmar {
-            background: #008f68;
-            color: white;
+        .btn-confirm {
+            background: #111;
+            color: #fff;
         }
 
-        .btn-voltar {
-            background: #eeeeee;
+        .btn-back {
+            background: #eee;
             color: #333;
+        }
+
+        .btn-copy {
+            background: #eee;
+            color: #222;
+        }
+
+        /* PAGAMENTO */
+
+        .payment-title {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .payment-value {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 8px 0 20px;
+        }
+
+        .payment-instruction {
+            color: #666;
+            line-height: 1.5;
+            font-size: 14px;
         }
 
         #qrcode {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin: 22px 0;
         }
 
         #qrcode img {
-            border: 8px solid white;
+            padding: 8px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .copy-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .pix-code {
-            background: #f1f2f2;
+            background: #f1f1f1;
             border-radius: 10px;
             padding: 12px;
-            font-size: 12px;
+            font-size: 11px;
+            line-height: 1.4;
             word-break: break-all;
             text-align: left;
-            max-height: 130px;
+            max-height: 120px;
             overflow-y: auto;
         }
 
-        .btn-copy {
-            background: #eeeeee;
-            color: #222;
-        }
-
-        .sucesso {
-            color: #008f68;
-            font-weight: bold;
-            margin-top: 15px;
+        .success {
+            color: #16804f;
+            font-weight: 700;
+            margin-top: 12px;
             min-height: 20px;
         }
 
-        .agradecimento {
+        /* AGRADECIMENTO */
+
+        .thank-you {
             margin-top: 25px;
-            font-size: 15px;
+            padding: 18px;
+            background: #f5f5f5;
+            border-radius: 12px;
             line-height: 1.5;
             color: #555;
         }
 
+        .thank-you strong {
+            color: #222;
+            font-size: 17px;
+        }
+
+        .martial {
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
         footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #888;
+            text-align: center;
+            color: #aaa;
+            font-size: 11px;
+            padding: 14px 0;
         }
 
     </style>
@@ -186,190 +277,253 @@
 
     <div class="card">
 
-        <div class="logo">
-            🥋
-        </div>
+        <!-- =========================
+             CABEÇALHO
+        ========================== -->
 
-        <h1>Espaço Dojo</h1>
+        <div class="header">
 
-        <div class="dojo">
-            Produtos da geladeira
-        </div>
-
-
-        <!-- =========================================
-             TELA DE PRODUTOS
-        ========================================== -->
-
-        <div id="produtos">
-
-            <div class="pergunta">
-                O que você está pegando?
+            <div class="logo">
+                🥋
             </div>
 
-
-            <div
-                class="produto"
-                onclick="selecionarProduto('Água', 10.00)"
-            >
-                <span>
-                    <span class="icone">💧</span>
-                    Água
-                </span>
-
-                <strong>
-                    R$ 10,00
-                </strong>
+            <div class="dojo-name">
+                DOJÔ ADRIANO CONSTANTINO
             </div>
 
-
-            <div
-                class="produto"
-                onclick="selecionarProduto('Isotônico', 15.00)"
-            >
-                <span>
-                    <span class="icone">🧃</span>
-                    Isotônico
-                </span>
-
-                <strong>
-                    R$ 15,00
-                </strong>
-            </div>
-
-
-            <div
-                class="produto"
-                onclick="selecionarProduto('Energético', 20.00)"
-            >
-                <span>
-                    <span class="icone">⚡</span>
-                    Energético
-                </span>
-
-                <strong>
-                    R$ 20,00
-                </strong>
+            <div class="dojo-subtitle">
+                Produtos para seu treino
             </div>
 
         </div>
 
 
-        <!-- =========================================
-             CONFIRMAÇÃO
-        ========================================== -->
+        <div class="content">
 
-        <div id="confirmacao">
 
-            <div class="produto-escolhido"
-                 id="produtoEscolhido">
+            <!-- =========================
+                 PRODUTOS
+            ========================== -->
+
+            <div id="products">
+
+                <div class="question">
+                    O que você está pegando?
+                </div>
+
+                <div class="instruction">
+                    Escolha o produto e depois confirme sua compra.
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Água', 10.00, '💧')"
+                >
+
+                    <span class="product-icon">
+                        💧
+                    </span>
+
+                    <span class="product-name">
+                        Água
+                    </span>
+
+                    <span class="product-price">
+                        R$ 10,00
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Isotônico', 15.00, '🧃')"
+                >
+
+                    <span class="product-icon">
+                        🧃
+                    </span>
+
+                    <span class="product-name">
+                        Isotônico
+                    </span>
+
+                    <span class="product-price">
+                        R$ 15,00
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="product"
+                    onclick="selectProduct('Energético', 20.00, '⚡')"
+                >
+
+                    <span class="product-icon">
+                        ⚡
+                    </span>
+
+                    <span class="product-name">
+                        Energético
+                    </span>
+
+                    <span class="product-price">
+                        R$ 20,00
+                    </span>
+
+                </div>
+
             </div>
 
-            <div class="valor"
-                 id="valorEscolhido">
+
+            <!-- =========================
+                 CONFIRMAÇÃO
+            ========================== -->
+
+            <div id="confirmation">
+
+                <div
+                    class="selected-icon"
+                    id="selectedIcon">
+                </div>
+
+                <div
+                    class="selected-product"
+                    id="selectedProduct">
+                </div>
+
+                <div
+                    class="selected-price"
+                    id="selectedPrice">
+                </div>
+
+
+                <div
+                    class="product-message"
+                    id="productMessage">
+                </div>
+
+
+                <button
+                    class="btn-confirm"
+                    onclick="generatePix()">
+
+                    💚 Confirmar compra
+
+                </button>
+
+
+                <button
+                    class="btn-back"
+                    onclick="backToProducts()">
+
+                    ← Escolher outro produto
+
+                </button>
+
             </div>
 
-            <div class="mensagem"
-                 id="mensagemProduto">
+
+            <!-- =========================
+                 PAGAMENTO
+            ========================== -->
+
+            <div id="payment">
+
+                <div class="payment-title">
+                    Pagamento via Pix
+                </div>
+
+
+                <div
+                    class="payment-value"
+                    id="paymentValue">
+                </div>
+
+
+                <div class="payment-instruction">
+
+                    Escaneie o QR Code usando o
+                    aplicativo do seu banco.
+
+                    <br><br>
+
+                    Confira o nome do recebedor
+                    antes de confirmar.
+
+                </div>
+
+
+                <div id="qrcode"></div>
+
+
+                <div class="copy-title">
+                    Ou copie o Pix Copia e Cola:
+                </div>
+
+
+                <div
+                    class="pix-code"
+                    id="pixCode">
+                </div>
+
+
+                <button
+                    class="btn-copy"
+                    onclick="copyPix()">
+
+                    📋 Copiar Pix Copia e Cola
+
+                </button>
+
+
+                <div
+                    class="success"
+                    id="success">
+                </div>
+
+
+                <!-- =========================
+                     AGRADECIMENTO
+                ========================== -->
+
+                <div class="thank-you">
+
+                    <strong>
+                        Obrigado pela compra! 🙏
+                    </strong>
+
+                    <br><br>
+
+                    Agradecemos a preferência e
+                    a confiança no nosso Dojô.
+
+                    <div class="martial">
+                        Treine forte. Treine com respeito. 🥋
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn-back"
+                    onclick="newPurchase()">
+
+                    🛒 Nova compra
+
+                </button>
+
             </div>
-
-            <button
-                class="btn-confirmar"
-                onclick="gerarPix()"
-            >
-                💚 Confirmar e gerar Pix
-            </button>
-
-            <button
-                class="btn-voltar"
-                onclick="voltarProdutos()"
-            >
-                ← Escolher outro produto
-            </button>
 
         </div>
-
-
-        <!-- =========================================
-             PAGAMENTO
-        ========================================== -->
-
-        <div id="pagamento">
-
-            <div class="produto-escolhido"
-                 id="produtoPagamento">
-            </div>
-
-            <div class="valor"
-                 id="valorPagamento">
-            </div>
-
-
-            <div class="mensagem">
-
-                Escaneie o QR Code com o aplicativo
-                do seu banco para realizar o pagamento.
-
-            </div>
-
-
-            <div id="qrcode"></div>
-
-
-            <p>
-                Ou copie o código Pix:
-            </p>
-
-
-            <div
-                class="pix-code"
-                id="pixCode">
-            </div>
-
-
-            <button
-                class="btn-copy"
-                onclick="copiarPix()"
-            >
-                📋 Copiar Pix Copia e Cola
-            </button>
-
-
-            <div
-                id="sucesso"
-                class="sucesso">
-            </div>
-
-
-            <div class="agradecimento">
-
-                <strong>
-                    Obrigado pela compra! 🙏
-                </strong>
-
-                <br><br>
-
-                Agradecemos a preferência.
-                Esperamos que seu treino seja excelente! 💪
-
-            </div>
-
-
-            <button
-                class="btn-voltar"
-                onclick="novaCompra()"
-            >
-                🛒 Fazer outra compra
-            </button>
-
-        </div>
-
 
     </div>
 
 
     <footer>
-        Pagamento seguro via Pix
+        Dojô Adriano Constantino
     </footer>
 
 </div>
@@ -377,19 +531,19 @@
 
 <script>
 
-
 /*
 =========================================================
 CONFIGURAÇÃO DO PIX
 =========================================================
 */
 
-const CHAVE_PIX = "+5511954619610";
+const PIX_KEY =
+    "08812438000186";
 
-const NOME_RECEBEDOR =
-    "CLAUDIO MANOEL DOS SANTOS";
+const RECEIVER_NAME =
+    "DOJO ADRIANO CONSTANTINO";
 
-const CIDADE =
+const CITY =
     "SAO PAULO";
 
 
@@ -399,9 +553,11 @@ VARIÁVEIS
 =========================================================
 */
 
-let produtoSelecionado = "";
+let selectedProduct = "";
 
-let valorSelecionado = 0;
+let selectedValue = 0;
+
+let selectedIcon = "";
 
 
 /*
@@ -410,82 +566,83 @@ SELECIONAR PRODUTO
 =========================================================
 */
 
-function selecionarProduto(nome, valor) {
+function selectProduct(name, value, icon) {
 
-    produtoSelecionado = nome;
+    selectedProduct = name;
 
-    valorSelecionado = valor;
+    selectedValue = value;
+
+    selectedIcon = icon;
 
 
-    document.getElementById("produtos")
+    document.getElementById("products")
         .style.display = "none";
 
-
-    document.getElementById("confirmacao")
+    document.getElementById("confirmation")
         .style.display = "block";
 
 
-    document.getElementById("produtoEscolhido")
-        .innerText = nome;
+    document.getElementById("selectedIcon")
+        .innerText = icon;
 
 
-    document.getElementById("valorEscolhido")
+    document.getElementById("selectedProduct")
+        .innerText = name;
+
+
+    document.getElementById("selectedPrice")
         .innerText =
             "R$ " +
-            valor.toFixed(2)
+            value.toFixed(2)
                 .replace(".", ",");
 
 
-    /*
-    Mensagem personalizada
-    */
-
-    let mensagem = "";
+    let message = "";
 
 
-    if (nome === "Água") {
+    if (name === "Água") {
 
-        mensagem =
+        message =
             "Você escolheu uma água. " +
             "Aproveite e mantenha-se hidratado! 💧";
 
     }
 
-    else if (nome === "Isotônico") {
+    else if (name === "Isotônico") {
 
-        mensagem =
+        message =
             "Você escolheu um isotônico. " +
             "Boa recuperação e ótimo treino! 💪";
 
     }
 
-    else if (nome === "Energético") {
+    else if (name === "Energético") {
 
-        mensagem =
+        message =
             "Você escolheu um energético. " +
             "Energia para continuar o treino! ⚡";
 
     }
 
 
-    document.getElementById("mensagemProduto")
-        .innerText = mensagem;
+    document.getElementById("productMessage")
+        .innerText = message;
 
 }
 
 
 /*
 =========================================================
-VOLTAR PARA PRODUTOS
+VOLTAR
 =========================================================
 */
 
-function voltarProdutos() {
+function backToProducts() {
 
-    document.getElementById("confirmacao")
+    document.getElementById("confirmation")
         .style.display = "none";
 
-    document.getElementById("produtos")
+    document.getElementById("products")
         .style.display = "block";
 
 }
@@ -497,9 +654,9 @@ REMOVER ACENTOS
 =========================================================
 */
 
-function removerAcentos(texto) {
+function removeAccents(text) {
 
-    return texto
+    return text
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 
@@ -512,9 +669,9 @@ LIMITAR TEXTO
 =========================================================
 */
 
-function limitar(texto, tamanho) {
+function limitText(text, max) {
 
-    return texto.substring(0, tamanho);
+    return text.substring(0, max);
 
 }
 
@@ -525,12 +682,12 @@ CAMPO EMV
 =========================================================
 */
 
-function campo(id, valor) {
+function field(id, value) {
 
     return id +
-        String(valor.length)
+        String(value.length)
             .padStart(2, "0") +
-        valor;
+        value;
 
 }
 
@@ -601,11 +758,10 @@ GERAR PIX
 =========================================================
 */
 
-function gerarPix() {
+function generatePix() {
 
-
-    const valorPix =
-        valorSelecionado.toFixed(2);
+    const amount =
+        selectedValue.toFixed(2);
 
 
     /*
@@ -613,23 +769,23 @@ function gerarPix() {
     */
 
     const gui =
-        campo(
+        field(
             "00",
             "BR.GOV.BCB.PIX"
         );
 
 
-    const chave =
-        campo(
+    const key =
+        field(
             "01",
-            CHAVE_PIX
+            PIX_KEY
         );
 
 
     const merchantAccount =
-        campo(
+        field(
             "26",
-            gui + chave
+            gui + key
         );
 
 
@@ -643,13 +799,13 @@ function gerarPix() {
     // Payload Format Indicator
 
     payload +=
-        campo(
+        field(
             "00",
             "01"
         );
 
 
-    // Merchant Account
+    // Merchant Account Information
 
     payload +=
         merchantAccount;
@@ -658,16 +814,16 @@ function gerarPix() {
     // Merchant Category Code
 
     payload +=
-        campo(
+        field(
             "52",
             "0000"
         );
 
 
-    // Moeda
+    // Moeda brasileira
 
     payload +=
-        campo(
+        field(
             "53",
             "986"
         );
@@ -676,29 +832,29 @@ function gerarPix() {
     // Valor
 
     payload +=
-        campo(
+        field(
             "54",
-            valorPix
+            amount
         );
 
 
     // País
 
     payload +=
-        campo(
+        field(
             "58",
             "BR"
         );
 
 
-    // Nome
+    // Nome do recebedor
 
     payload +=
-        campo(
+        field(
             "59",
-            limitar(
-                removerAcentos(
-                    NOME_RECEBEDOR
+            limitText(
+                removeAccents(
+                    RECEIVER_NAME
                 ),
                 25
             )
@@ -708,11 +864,11 @@ function gerarPix() {
     // Cidade
 
     payload +=
-        campo(
+        field(
             "60",
-            limitar(
-                removerAcentos(
-                    CIDADE
+            limitText(
+                removeAccents(
+                    CITY
                 ),
                 15
             )
@@ -722,9 +878,9 @@ function gerarPix() {
     // TXID
 
     payload +=
-        campo(
+        field(
             "62",
-            campo(
+            field(
                 "05",
                 "***"
             )
@@ -750,23 +906,18 @@ function gerarPix() {
     MOSTRAR PAGAMENTO
     */
 
-    document.getElementById("confirmacao")
+    document.getElementById("confirmation")
         .style.display = "none";
 
 
-    document.getElementById("pagamento")
+    document.getElementById("payment")
         .style.display = "block";
 
 
-    document.getElementById("produtoPagamento")
-        .innerText =
-            produtoSelecionado;
-
-
-    document.getElementById("valorPagamento")
+    document.getElementById("paymentValue")
         .innerText =
             "R$ " +
-            valorSelecionado
+            selectedValue
                 .toFixed(2)
                 .replace(".", ",");
 
@@ -794,22 +945,15 @@ function gerarPix() {
         qr,
         {
             text: pix,
-
             width: 230,
-
             height: 230,
-
             correctLevel:
                 QRCode.CorrectLevel.M
         }
     );
 
 
-    /*
-    ROLAR PARA PAGAMENTO
-    */
-
-    document.getElementById("pagamento")
+    document.getElementById("payment")
         .scrollIntoView({
             behavior: "smooth"
         });
@@ -823,16 +967,15 @@ COPIAR PIX
 =========================================================
 */
 
-async function copiarPix() {
-
+async function copyPix() {
 
     const pix =
         document.getElementById("pixCode")
             .innerText;
 
 
-    const mensagem =
-        document.getElementById("sucesso");
+    const message =
+        document.getElementById("success");
 
 
     try {
@@ -842,17 +985,12 @@ async function copiarPix() {
             .writeText(pix);
 
 
-        mensagem.innerText =
+        message.innerText =
             "✓ Pix Copia e Cola copiado!";
-
 
     }
 
-    catch (erro) {
-
-        /*
-        Fallback para navegadores
-        */
+    catch (error) {
 
         const textarea =
             document.createElement("textarea");
@@ -880,14 +1018,14 @@ async function copiarPix() {
             document.execCommand("copy");
 
 
-            mensagem.innerText =
+            message.innerText =
                 "✓ Pix Copia e Cola copiado!";
 
         }
 
         catch (e) {
 
-            mensagem.innerText =
+            message.innerText =
                 "Selecione o código Pix e copie manualmente.";
 
         }
@@ -907,23 +1045,24 @@ NOVA COMPRA
 =========================================================
 */
 
-function novaCompra() {
+function newPurchase() {
+
+    selectedProduct = "";
+
+    selectedValue = 0;
+
+    selectedIcon = "";
 
 
-    produtoSelecionado = "";
-
-    valorSelecionado = 0;
-
-
-    document.getElementById("pagamento")
+    document.getElementById("payment")
         .style.display = "none";
 
 
-    document.getElementById("confirmacao")
+    document.getElementById("confirmation")
         .style.display = "none";
 
 
-    document.getElementById("produtos")
+    document.getElementById("products")
         .style.display = "block";
 
 
@@ -935,11 +1074,10 @@ function novaCompra() {
         .innerText = "";
 
 
-    document.getElementById("sucesso")
+    document.getElementById("success")
         .innerText = "";
 
 }
-
 
 </script>
 
