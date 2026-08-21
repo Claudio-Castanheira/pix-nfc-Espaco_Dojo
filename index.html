@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#008f68">
 
-    <title>Pague com Pix</title>
+    <title>Espaço Dojo - Pagamento Pix</title>
 
     <!-- Biblioteca gratuita para gerar QR Code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -17,84 +19,116 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f5f7;
+            background: #f3f5f4;
             color: #222;
         }
 
         .container {
-            max-width: 420px;
-            margin: 0 auto;
+            max-width: 440px;
+            margin: auto;
             padding: 20px;
         }
 
         .card {
             background: white;
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
             text-align: center;
         }
 
-        .pix-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
+        .logo {
+            font-size: 42px;
+            margin-bottom: 5px;
         }
 
         h1 {
-            margin: 5px 0;
-            font-size: 26px;
+            margin: 5px 0 8px;
+            font-size: 27px;
         }
 
-        .description {
-            color: #666;
+        .dojo {
+            font-size: 14px;
+            color: #777;
             margin-bottom: 25px;
         }
 
-        label {
-            display: block;
-            text-align: left;
+        .pergunta {
+            font-size: 21px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin: 20px 0;
         }
 
-        input {
+        .produto {
             width: 100%;
-            padding: 16px;
-            border: 1px solid #ccc;
-            border-radius: 12px;
-            font-size: 22px;
-            text-align: center;
-            outline: none;
+            padding: 18px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 18px;
+            transition: 0.2s;
         }
 
-        input:focus {
+        .produto:hover {
+            background: #f2faf7;
             border-color: #008f68;
+        }
+
+        .produto strong {
+            float: right;
+        }
+
+        .icone {
+            font-size: 25px;
+            margin-right: 8px;
+        }
+
+        #confirmacao,
+        #pagamento {
+            display: none;
+        }
+
+        .produto-escolhido {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0 5px;
+        }
+
+        .valor {
+            font-size: 34px;
+            font-weight: bold;
+            color: #008f68;
+            margin: 10px 0 20px;
+        }
+
+        .mensagem {
+            color: #555;
+            line-height: 1.5;
+            margin: 15px 0 25px;
         }
 
         button {
             width: 100%;
-            padding: 16px;
             border: none;
-            border-radius: 12px;
+            border-radius: 13px;
+            padding: 16px;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
-        .btn-pix {
+        .btn-confirmar {
             background: #008f68;
             color: white;
         }
 
-        .btn-copy {
-            background: #eee;
-            color: #222;
-        }
-
-        #resultado {
-            display: none;
-            margin-top: 25px;
+        .btn-voltar {
+            background: #eeeeee;
+            color: #333;
         }
 
         #qrcode {
@@ -103,8 +137,12 @@
             margin: 20px 0;
         }
 
+        #qrcode img {
+            border: 8px solid white;
+        }
+
         .pix-code {
-            background: #f1f1f1;
+            background: #f1f2f2;
             border-radius: 10px;
             padding: 12px;
             font-size: 12px;
@@ -114,30 +152,31 @@
             overflow-y: auto;
         }
 
-        .success {
+        .btn-copy {
+            background: #eeeeee;
+            color: #222;
+        }
+
+        .sucesso {
             color: #008f68;
             font-weight: bold;
-            margin-top: 12px;
-        }
-
-        .recebedor {
-            font-size: 14px;
-            color: #666;
             margin-top: 15px;
+            min-height: 20px;
         }
 
-        .valor-final {
-            font-size: 30px;
-            font-weight: bold;
-            margin: 15px 0;
+        .agradecimento {
+            margin-top: 25px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #555;
         }
 
         footer {
-            text-align: center;
-            color: #888;
-            font-size: 12px;
             margin-top: 20px;
+            font-size: 12px;
+            color: #888;
         }
+
     </style>
 </head>
 
@@ -147,69 +186,190 @@
 
     <div class="card">
 
-        <div class="pix-icon">💚</div>
-
-        <h1>Pague com Pix</h1>
-
-        <div class="description">
-            Informe o valor que deseja pagar
+        <div class="logo">
+            🥋
         </div>
 
-        <div class="recebedor">
-            Recebedor:<br>
-            <strong>CLAUDIO MANOEL DOS SANTOS</strong>
+        <h1>Espaço Dojo</h1>
+
+        <div class="dojo">
+            Produtos da geladeira
         </div>
 
-        <br>
 
-        <label for="valor">Valor</label>
+        <!-- =========================================
+             TELA DE PRODUTOS
+        ========================================== -->
 
-        <input
-            type="text"
-            id="valor"
-            inputmode="decimal"
-            placeholder="0,00"
-            autocomplete="off"
-        >
+        <div id="produtos">
 
-        <button
-            class="btn-pix"
-            onclick="gerarPix()">
-            💚 Gerar Pix
-        </button>
+            <div class="pergunta">
+                O que você está pegando?
+            </div>
 
-        <div id="resultado">
 
-            <div class="valor-final" id="valorFinal"></div>
+            <div
+                class="produto"
+                onclick="selecionarProduto('Água', 10.00)"
+            >
+                <span>
+                    <span class="icone">💧</span>
+                    Água
+                </span>
 
-            <h3>Escaneie o QR Code</h3>
+                <strong>
+                    R$ 10,00
+                </strong>
+            </div>
+
+
+            <div
+                class="produto"
+                onclick="selecionarProduto('Isotônico', 15.00)"
+            >
+                <span>
+                    <span class="icone">🧃</span>
+                    Isotônico
+                </span>
+
+                <strong>
+                    R$ 15,00
+                </strong>
+            </div>
+
+
+            <div
+                class="produto"
+                onclick="selecionarProduto('Energético', 20.00)"
+            >
+                <span>
+                    <span class="icone">⚡</span>
+                    Energético
+                </span>
+
+                <strong>
+                    R$ 20,00
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             CONFIRMAÇÃO
+        ========================================== -->
+
+        <div id="confirmacao">
+
+            <div class="produto-escolhido"
+                 id="produtoEscolhido">
+            </div>
+
+            <div class="valor"
+                 id="valorEscolhido">
+            </div>
+
+            <div class="mensagem"
+                 id="mensagemProduto">
+            </div>
+
+            <button
+                class="btn-confirmar"
+                onclick="gerarPix()"
+            >
+                💚 Confirmar e gerar Pix
+            </button>
+
+            <button
+                class="btn-voltar"
+                onclick="voltarProdutos()"
+            >
+                ← Escolher outro produto
+            </button>
+
+        </div>
+
+
+        <!-- =========================================
+             PAGAMENTO
+        ========================================== -->
+
+        <div id="pagamento">
+
+            <div class="produto-escolhido"
+                 id="produtoPagamento">
+            </div>
+
+            <div class="valor"
+                 id="valorPagamento">
+            </div>
+
+
+            <div class="mensagem">
+
+                Escaneie o QR Code com o aplicativo
+                do seu banco para realizar o pagamento.
+
+            </div>
+
 
             <div id="qrcode"></div>
 
-            <p>Ou copie o código Pix:</p>
+
+            <p>
+                Ou copie o código Pix:
+            </p>
+
 
             <div
                 class="pix-code"
                 id="pixCode">
             </div>
 
+
             <button
                 class="btn-copy"
-                onclick="copiarPix()">
+                onclick="copiarPix()"
+            >
                 📋 Copiar Pix Copia e Cola
             </button>
 
+
             <div
-                id="mensagem"
-                class="success">
+                id="sucesso"
+                class="sucesso">
             </div>
+
+
+            <div class="agradecimento">
+
+                <strong>
+                    Obrigado pela compra! 🙏
+                </strong>
+
+                <br><br>
+
+                Agradecemos a preferência.
+                Esperamos que seu treino seja excelente! 💪
+
+            </div>
+
+
+            <button
+                class="btn-voltar"
+                onclick="novaCompra()"
+            >
+                🛒 Fazer outra compra
+            </button>
 
         </div>
 
+
     </div>
 
+
     <footer>
-        Pagamento via Pix
+        Pagamento seguro via Pix
     </footer>
 
 </div>
@@ -217,53 +377,167 @@
 
 <script>
 
+
 /*
 =========================================================
-CONFIGURAÇÃO
+CONFIGURAÇÃO DO PIX
 =========================================================
 */
 
 const CHAVE_PIX = "+5511954619610";
 
-const NOME_RECEBEDOR = "CLAUDIO MANOEL DOS SANTOS";
+const NOME_RECEBEDOR =
+    "CLAUDIO MANOEL DOS SANTOS";
 
-const CIDADE = "SAO PAULO";
+const CIDADE =
+    "SAO PAULO";
 
 
 /*
 =========================================================
-FUNÇÕES AUXILIARES
+VARIÁVEIS
 =========================================================
 */
 
-// Remove acentos
+let produtoSelecionado = "";
+
+let valorSelecionado = 0;
+
+
+/*
+=========================================================
+SELECIONAR PRODUTO
+=========================================================
+*/
+
+function selecionarProduto(nome, valor) {
+
+    produtoSelecionado = nome;
+
+    valorSelecionado = valor;
+
+
+    document.getElementById("produtos")
+        .style.display = "none";
+
+
+    document.getElementById("confirmacao")
+        .style.display = "block";
+
+
+    document.getElementById("produtoEscolhido")
+        .innerText = nome;
+
+
+    document.getElementById("valorEscolhido")
+        .innerText =
+            "R$ " +
+            valor.toFixed(2)
+                .replace(".", ",");
+
+
+    /*
+    Mensagem personalizada
+    */
+
+    let mensagem = "";
+
+
+    if (nome === "Água") {
+
+        mensagem =
+            "Você escolheu uma água. " +
+            "Aproveite e mantenha-se hidratado! 💧";
+
+    }
+
+    else if (nome === "Isotônico") {
+
+        mensagem =
+            "Você escolheu um isotônico. " +
+            "Boa recuperação e ótimo treino! 💪";
+
+    }
+
+    else if (nome === "Energético") {
+
+        mensagem =
+            "Você escolheu um energético. " +
+            "Energia para continuar o treino! ⚡";
+
+    }
+
+
+    document.getElementById("mensagemProduto")
+        .innerText = mensagem;
+
+}
+
+
+/*
+=========================================================
+VOLTAR PARA PRODUTOS
+=========================================================
+*/
+
+function voltarProdutos() {
+
+    document.getElementById("confirmacao")
+        .style.display = "none";
+
+    document.getElementById("produtos")
+        .style.display = "block";
+
+}
+
+
+/*
+=========================================================
+REMOVER ACENTOS
+=========================================================
+*/
+
 function removerAcentos(texto) {
 
     return texto
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
-}
 
-
-// Limita o texto ao tamanho permitido pelo Pix
-function limitar(texto, tamanho) {
-
-    return texto.substring(0, tamanho);
-}
-
-
-// Formata campo EMV
-function campo(id, valor) {
-
-    return id +
-           String(valor.length).padStart(2, "0") +
-           valor;
 }
 
 
 /*
 =========================================================
-CRC16 CCITT
+LIMITAR TEXTO
+=========================================================
+*/
+
+function limitar(texto, tamanho) {
+
+    return texto.substring(0, tamanho);
+
+}
+
+
+/*
+=========================================================
+CAMPO EMV
+=========================================================
+*/
+
+function campo(id, valor) {
+
+    return id +
+        String(valor.length)
+            .padStart(2, "0") +
+        valor;
+
+}
+
+
+/*
+=========================================================
+CRC16
 =========================================================
 */
 
@@ -271,202 +545,274 @@ function crc16(payload) {
 
     let crc = 0xFFFF;
 
-    for (let i = 0; i < payload.length; i++) {
 
-        crc ^= payload.charCodeAt(i) << 8;
+    for (
+        let i = 0;
+        i < payload.length;
+        i++
+    ) {
 
-        for (let j = 0; j < 8; j++) {
+        crc ^=
+            payload.charCodeAt(i) << 8;
 
-            if ((crc & 0x8000) !== 0) {
+
+        for (
+            let j = 0;
+            j < 8;
+            j++
+        ) {
+
+            if (
+                (crc & 0x8000) !== 0
+            ) {
 
                 crc =
-                    ((crc << 1) ^ 0x1021) & 0xFFFF;
+                    (
+                        (crc << 1)
+                        ^
+                        0x1021
+                    ) & 0xFFFF;
 
-            } else {
+            }
+
+            else {
 
                 crc =
                     (crc << 1) & 0xFFFF;
+
             }
+
         }
+
     }
+
 
     return crc
         .toString(16)
         .toUpperCase()
         .padStart(4, "0");
+
 }
 
 
 /*
 =========================================================
-GERAÇÃO DO PIX
+GERAR PIX
 =========================================================
 */
 
 function gerarPix() {
 
-    let valorTexto =
-        document.getElementById("valor").value;
-
-    // Aceita 10,50 ou 10.50
-    valorTexto =
-        valorTexto
-        .replace("R$", "")
-        .trim()
-        .replace(/\./g, "")
-        .replace(",", ".");
-
-    const valor =
-        parseFloat(valorTexto);
-
-    if (isNaN(valor) || valor <= 0) {
-
-        alert("Digite um valor válido.");
-
-        return;
-    }
 
     const valorPix =
-        valor.toFixed(2);
+        valorSelecionado.toFixed(2);
 
 
     /*
-    -----------------------------------------------------
     Merchant Account Information
-    -----------------------------------------------------
     */
 
     const gui =
-        campo("00", "BR.GOV.BCB.PIX");
+        campo(
+            "00",
+            "BR.GOV.BCB.PIX"
+        );
+
 
     const chave =
-        campo("01", CHAVE_PIX);
+        campo(
+            "01",
+            CHAVE_PIX
+        );
+
 
     const merchantAccount =
-        campo("26", gui + chave);
+        campo(
+            "26",
+            gui + chave
+        );
 
 
     /*
-    -----------------------------------------------------
-    Dados principais
-    -----------------------------------------------------
+    PAYLOAD
     */
 
     let payload = "";
 
+
     // Payload Format Indicator
-    payload += campo("00", "01");
-
-    // Merchant Account Information
-    payload += merchantAccount;
-
-    // Moeda - Real brasileiro
-    payload += campo("52", "0000");
-
-    // Valor
-    payload += campo("53", "986");
-
-    // Valor da transação
-    payload += campo("54", valorPix);
-
-    // País
-    payload += campo("58", "BR");
-
-    // Nome
-    payload += campo(
-        "59",
-        limitar(
-            removerAcentos(NOME_RECEBEDOR),
-            25
-        )
-    );
-
-    // Cidade
-    payload += campo(
-        "60",
-        limitar(
-            removerAcentos(CIDADE),
-            15
-        )
-    );
-
-
-    /*
-    -----------------------------------------------------
-    Additional Data Field
-
-    TXID = ***
-    -----------------------------------------------------
-    */
-
-    const txid =
-        campo("05", "***");
 
     payload +=
-        campo("62", txid);
+        campo(
+            "00",
+            "01"
+        );
+
+
+    // Merchant Account
+
+    payload +=
+        merchantAccount;
+
+
+    // Merchant Category Code
+
+    payload +=
+        campo(
+            "52",
+            "0000"
+        );
+
+
+    // Moeda
+
+    payload +=
+        campo(
+            "53",
+            "986"
+        );
+
+
+    // Valor
+
+    payload +=
+        campo(
+            "54",
+            valorPix
+        );
+
+
+    // País
+
+    payload +=
+        campo(
+            "58",
+            "BR"
+        );
+
+
+    // Nome
+
+    payload +=
+        campo(
+            "59",
+            limitar(
+                removerAcentos(
+                    NOME_RECEBEDOR
+                ),
+                25
+            )
+        );
+
+
+    // Cidade
+
+    payload +=
+        campo(
+            "60",
+            limitar(
+                removerAcentos(
+                    CIDADE
+                ),
+                15
+            )
+        );
+
+
+    // TXID
+
+    payload +=
+        campo(
+            "62",
+            campo(
+                "05",
+                "***"
+            )
+        );
 
 
     /*
-    -----------------------------------------------------
     CRC
-    -----------------------------------------------------
     */
 
     payload += "6304";
 
+
     const crc =
         crc16(payload);
+
 
     const pix =
         payload + crc;
 
 
     /*
-    -----------------------------------------------------
-    MOSTRAR RESULTADO
-    -----------------------------------------------------
+    MOSTRAR PAGAMENTO
     */
 
-    document.getElementById("resultado")
+    document.getElementById("confirmacao")
+        .style.display = "none";
+
+
+    document.getElementById("pagamento")
         .style.display = "block";
 
-    document.getElementById("valorFinal")
+
+    document.getElementById("produtoPagamento")
         .innerText =
-        "R$ " +
-        valor.toFixed(2)
-            .replace(".", ",");
+            produtoSelecionado;
+
+
+    document.getElementById("valorPagamento")
+        .innerText =
+            "R$ " +
+            valorSelecionado
+                .toFixed(2)
+                .replace(".", ",");
+
+
+    /*
+    PIX COPIA E COLA
+    */
 
     document.getElementById("pixCode")
         .innerText = pix;
 
 
     /*
-    -----------------------------------------------------
     QR CODE
-    -----------------------------------------------------
     */
 
     const qr =
         document.getElementById("qrcode");
 
+
     qr.innerHTML = "";
 
-    new QRCode(qr, {
 
-        text: pix,
+    new QRCode(
+        qr,
+        {
+            text: pix,
 
-        width: 220,
+            width: 230,
 
-        height: 220,
+            height: 230,
 
-        correctLevel:
-            QRCode.CorrectLevel.M
+            correctLevel:
+                QRCode.CorrectLevel.M
+        }
+    );
 
-    });
 
+    /*
+    ROLAR PARA PAGAMENTO
+    */
 
-    document.getElementById("mensagem")
-        .innerText = "";
+    document.getElementById("pagamento")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
 }
 
@@ -479,45 +825,121 @@ COPIAR PIX
 
 async function copiarPix() {
 
+
     const pix =
         document.getElementById("pixCode")
             .innerText;
 
+
+    const mensagem =
+        document.getElementById("sucesso");
+
+
     try {
 
-        await navigator.clipboard.writeText(pix);
+        await navigator
+            .clipboard
+            .writeText(pix);
 
-        document.getElementById("mensagem")
-            .innerText =
+
+        mensagem.innerText =
             "✓ Pix Copia e Cola copiado!";
 
-    } catch (erro) {
 
-        alert(
-            "Não foi possível copiar automaticamente. " +
-            "Selecione e copie o código."
-        );
     }
+
+    catch (erro) {
+
+        /*
+        Fallback para navegadores
+        */
+
+        const textarea =
+            document.createElement("textarea");
+
+
+        textarea.value = pix;
+
+
+        textarea.style.position =
+            "fixed";
+
+        textarea.style.left =
+            "-9999px";
+
+
+        document.body
+            .appendChild(textarea);
+
+
+        textarea.select();
+
+
+        try {
+
+            document.execCommand("copy");
+
+
+            mensagem.innerText =
+                "✓ Pix Copia e Cola copiado!";
+
+        }
+
+        catch (e) {
+
+            mensagem.innerText =
+                "Selecione o código Pix e copie manualmente.";
+
+        }
+
+
+        document.body
+            .removeChild(textarea);
+
+    }
+
 }
 
 
 /*
 =========================================================
-FORMATAÇÃO DO CAMPO DE VALOR
+NOVA COMPRA
 =========================================================
 */
 
-document
-    .getElementById("valor")
-    .addEventListener("input", function() {
+function novaCompra() {
 
-        let valor = this.value;
 
-        valor = valor.replace(/[^\d,\.]/g, "");
+    produtoSelecionado = "";
 
-        this.value = valor;
+    valorSelecionado = 0;
 
-    });
+
+    document.getElementById("pagamento")
+        .style.display = "none";
+
+
+    document.getElementById("confirmacao")
+        .style.display = "none";
+
+
+    document.getElementById("produtos")
+        .style.display = "block";
+
+
+    document.getElementById("qrcode")
+        .innerHTML = "";
+
+
+    document.getElementById("pixCode")
+        .innerText = "";
+
+
+    document.getElementById("sucesso")
+        .innerText = "";
+
+}
+
 
 </script>
 
